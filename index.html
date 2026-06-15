@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pritam Majumder — Data Scientist & AI Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0F1226;
+    --bg-soft: #161A35;
+    --card: #1B2040;
+    --violet: #7C5CFF;
+    --coral: #FF6B6B;
+    --teal: #4ECDC4;
+    --text: #F5F3FF;
+    --muted: #9090B0;
+    --line: rgba(255,255,255,0.08);
+    --grad: linear-gradient(135deg, var(--violet), var(--coral));
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  .bg-decor{
+    position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(124,92,255,0.18), transparent 40%),
+      radial-gradient(circle at 85% 75%, rgba(255,107,107,0.14), transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(78,205,196,0.06), transparent 50%);
+  }
+
+  h1,h2,h3,h4{ font-family:'Space Grotesk', sans-serif; font-weight:700; letter-spacing:-0.01em; }
+
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  a{ color: var(--teal); text-decoration:none; }
+
+  .container{ max-width:1080px; margin:0 auto; padding:0 32px; }
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:100;
+    background: rgba(15,18,38,0.75);
+    backdrop-filter: blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .container{
+    display:flex; justify-content:space-between; align-items:center;
+    height:68px;
+  }
+  .logo{ font-size:1.15rem; font-weight:700; }
+  .logo span{ color: var(--violet); }
+  nav ul{ display:flex; gap:32px; list-style:none; }
+  nav a{ color: var(--text); font-size:0.92rem; font-weight:500; transition:color .2s; }
+  nav a:hover{ color: var(--violet); }
+  .nav-toggle{ display:none; }
+
+  /* HERO */
+  .hero{
+    padding:120px 0 90px;
+    position:relative;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    color: var(--teal);
+    font-size:0.85rem;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    margin-bottom:18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{
+    content:''; width:28px; height:1px; background: var(--teal);
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 7vw, 4.6rem);
+    line-height:1.05;
+    margin-bottom:20px;
+  }
+  .hero h1 .grad-text{
+    background: var(--grad);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p.lead{
+    font-size:1.15rem;
+    color: var(--muted);
+    max-width:620px;
+    margin-bottom:36px;
+  }
+  .hero-cta{ display:flex; gap:16px; flex-wrap:wrap; margin-bottom:50px; }
+
+  /* hero layout with photo */
+  .hero-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:48px;
+  }
+  .hero-text{ flex:1 1 560px; min-width:0; }
+  .hero-photo{
+    flex:0 0 auto;
+    position:relative;
+    width:240px; height:240px;
+  }
+  .hero-photo::before{
+    content:'';
+    position:absolute;
+    inset:-8px;
+    border-radius:50%;
+    background: var(--grad);
+    z-index:0;
+  }
+  .hero-photo img{
+    position:relative;
+    z-index:1;
+    width:100%; height:100%;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid var(--bg);
+    display:block;
+  }
+  @media (max-width: 860px){
+    .hero-top{ flex-direction:column-reverse; text-align:center; gap:32px; }
+    .hero-photo{ width:160px; height:160px; }
+    .hero p.lead{ margin-left:auto; margin-right:auto; }
+    .hero-cta{ justify-content:center; }
+    .eyebrow{ justify-content:center; }
+    .eyebrow::before{ display:none; }
+  }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:13px 28px;
+    border-radius:999px;
+    font-weight:600; font-size:0.95rem;
+    transition: transform .2s, box-shadow .2s;
+    border:1px solid transparent;
+  }
+  .btn-primary{
+    background: var(--grad); color:#fff;
+    box-shadow:0 8px 24px rgba(124,92,255,0.35);
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 12px 32px rgba(124,92,255,0.45); }
+  .btn-ghost{
+    border-color: var(--line); color: var(--text);
+  }
+  .btn-ghost:hover{ border-color: var(--violet); color: var(--violet); transform:translateY(-2px); }
+
+  /* waveform signature */
+  .waveform{
+    width:100%; height:100px;
+    display:block;
+  }
+  .waveform path{
+    fill:none;
+    stroke-width:2;
+  }
+  .wave-1{ stroke: var(--violet); opacity:0.9; }
+  .wave-2{ stroke: var(--coral); opacity:0.5; }
+  .wave-3{ stroke: var(--teal); opacity:0.35; }
+
+  @keyframes pulse-move{
+    0%{ stroke-dashoffset:0; }
+    100%{ stroke-dashoffset:-1000; }
+  }
+  .wave-1, .wave-2, .wave-3{
+    stroke-dasharray: 8 6;
+    animation: pulse-move 18s linear infinite;
+  }
+  .wave-2{ animation-duration:26s; animation-direction:reverse; }
+  .wave-3{ animation-duration:34s; }
+
+  @media (prefers-reduced-motion: reduce){
+    .wave-1,.wave-2,.wave-3{ animation:none; }
+    html{ scroll-behavior:auto; }
+  }
+
+  /* SECTION GENERAL */
+  section{ padding:90px 0; scroll-margin-top:80px; }
+  .section-head{ margin-bottom:48px; }
+  .section-head .eyebrow{ margin-bottom:10px; }
+  .section-head h2{ font-size:clamp(1.8rem, 4vw, 2.6rem); }
+
+  /* ABOUT */
+  .about-grid{
+    display:grid; grid-template-columns: 1.4fr 1fr; gap:48px;
+    align-items:start;
+  }
+  .about-grid p{ color: var(--muted); margin-bottom:16px; font-size:1.02rem; }
+  .stat-card{
+    background: var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:24px;
+    margin-bottom:16px;
+  }
+  .stat-card .num{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:2.2rem; font-weight:700;
+    background: var(--grad);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    display:block; margin-bottom:4px;
+  }
+  .stat-card .label{ color: var(--muted); font-size:0.9rem; }
+
+  /* SKILLS */
+  .skills-grid{
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap:20px;
+  }
+  .skill-card{
+    background: var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:24px;
+    transition: transform .2s, border-color .2s;
+  }
+  .skill-card:hover{ transform:translateY(-4px); border-color: var(--violet); }
+  .skill-card h3{
+    font-size:1.05rem; margin-bottom:14px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .skill-card h3::before{
+    content:''; width:10px; height:10px; border-radius:3px;
+    background: var(--grad);
+    display:inline-block;
+  }
+  .tag-list{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.78rem;
+    background: rgba(124,92,255,0.12);
+    border:1px solid rgba(124,92,255,0.25);
+    color: var(--text);
+    padding:5px 10px;
+    border-radius:6px;
+  }
+
+  /* PROJECTS */
+  .projects-grid{
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap:24px;
+  }
+  .project-card{
+    background: var(--card);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:28px;
+    display:flex; flex-direction:column;
+    transition: transform .25s, box-shadow .25s, border-color .25s;
+    position:relative;
+    overflow:hidden;
+  }
+  .project-card::before{
+    content:'';
+    position:absolute; top:0; left:0; right:0; height:4px;
+    background: var(--grad);
+    transform: scaleX(0); transform-origin:left;
+    transition: transform .3s;
+  }
+  .project-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 16px 40px rgba(0,0,0,0.35);
+    border-color: rgba(124,92,255,0.4);
+  }
+  .project-card:hover::before{ transform:scaleX(1); }
+  .project-card .meta{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.75rem; color: var(--coral);
+    text-transform:uppercase; letter-spacing:0.08em;
+    margin-bottom:10px;
+  }
+  .project-card h3{ font-size:1.25rem; margin-bottom:10px; }
+  .project-card p{ color: var(--muted); font-size:0.95rem; margin-bottom:18px; flex-grow:1; }
+  .project-card .tag-list{ margin-bottom:0; }
+
+  /* EXPERIENCE TIMELINE */
+  .timeline{ position:relative; padding-left:32px; }
+  .timeline::before{
+    content:''; position:absolute; left:5px; top:6px; bottom:6px; width:2px;
+    background: linear-gradient(180deg, var(--violet), var(--coral), transparent);
+  }
+  .timeline-item{ position:relative; padding-bottom:36px; }
+  .timeline-item:last-child{ padding-bottom:0; }
+  .timeline-item::before{
+    content:''; position:absolute; left:-32px; top:6px;
+    width:12px; height:12px; border-radius:50%;
+    background: var(--bg); border:2px solid var(--violet);
+  }
+  .timeline-item .when{
+    font-family:'JetBrains Mono', monospace; font-size:0.8rem; color: var(--teal);
+    margin-bottom:6px; display:block;
+  }
+  .timeline-item h3{ font-size:1.15rem; margin-bottom:4px; }
+  .timeline-item .org{ color: var(--muted); font-size:0.92rem; margin-bottom:10px; }
+  .timeline-item ul{ list-style:none; color: var(--muted); font-size:0.92rem; }
+  .timeline-item ul li{ margin-bottom:6px; padding-left:18px; position:relative; }
+  .timeline-item ul li::before{
+    content:'▹'; position:absolute; left:0; color: var(--violet);
+  }
+
+  /* EDUCATION + CERTS */
+  .two-col{ display:grid; grid-template-columns: 1fr 1fr; gap:48px; }
+  .edu-card{
+    background: var(--card); border:1px solid var(--line); border-radius:18px;
+    padding:24px; margin-bottom:16px;
+  }
+  .edu-card h3{ font-size:1.05rem; margin-bottom:4px; }
+  .edu-card .org{ color: var(--muted); font-size:0.9rem; margin-bottom:6px; }
+  .edu-card .score{ font-family:'JetBrains Mono', monospace; color: var(--teal); font-size:0.85rem; }
+  .cert-list{ list-style:none; }
+  .cert-list li{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:14px 0; border-bottom:1px solid var(--line);
+    font-size:0.95rem;
+  }
+  .cert-list li:last-child{ border-bottom:none; }
+  .cert-list .cert-org{
+    font-family:'JetBrains Mono', monospace; color: var(--muted); font-size:0.8rem;
+  }
+
+  /* CONTACT */
+  .contact{
+    text-align:center;
+  }
+  .contact h2{ font-size:clamp(2rem, 5vw, 3rem); margin-bottom:16px; }
+  .contact p{ color: var(--muted); max-width:520px; margin:0 auto 36px; }
+  .contact-links{ display:flex; justify-content:center; gap:16px; flex-wrap:wrap; }
+
+  footer{
+    text-align:center; padding:32px 0; color: var(--muted);
+    font-size:0.85rem; border-top:1px solid var(--line);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 860px){
+    .about-grid, .two-col{ grid-template-columns: 1fr; }
+    nav ul{ gap:18px; }
+    nav ul li:nth-child(4), nav ul li:nth-child(5){ display:none; }
+  }
+  @media (max-width: 520px){
+    .container{ padding:0 20px; }
+    nav ul{ gap:14px; font-size:0.85rem; }
+    nav ul li:nth-child(3){ display:none; }
+    section{ padding:64px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-decor"></div>
+
+<nav>
+  <div class="container">
+    <div class="logo">PM<span>.</span></div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <div class="hero-top">
+      <div class="hero-text">
+        <div class="eyebrow">Data Scientist · AI Engineer</div>
+        <h1>Pritam Majumder<br>turns <span class="grad-text">raw signals</span> into models that decide.</h1>
+        <p class="lead">M.Sc. Data Science graduate from the University of Kalyani, building end-to-end ML and LLM systems — from biosignal-based diagnosis models to RAG-powered assistants and full data pipelines.</p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="mailto:pritammajumder792@gmail.com" class="btn btn-ghost">Get in Touch</a>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img src="profile.jpg" alt="Portrait of Pritam Majumder">
+      </div>
+    </div>
+    <svg class="waveform" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true">
+      <path class="wave-1" d="M0,50 C30,10 60,90 90,50 C120,10 150,90 180,50 C210,10 240,90 270,50 C300,10 330,90 360,50 C390,10 420,90 450,50 C480,10 510,90 540,50 C570,10 600,90 630,50 C660,10 690,90 720,50 C750,10 780,90 810,50 C840,10 870,90 900,50 C930,10 960,90 990,50 C1010,30 1020,70 1030,50"/>
+      <path class="wave-2" d="M0,55 C50,35 100,75 150,55 C200,35 250,75 300,55 C350,35 400,75 450,55 C500,35 550,75 600,55 C650,35 700,75 750,55 C800,35 850,75 900,55 C950,35 1000,75 1030,55"/>
+      <path class="wave-3" d="M0,50 C80,45 160,55 240,50 C320,45 400,55 480,50 C560,45 640,55 720,50 C800,45 880,55 960,50 C1000,48 1020,52 1030,50"/>
+    </svg>
+  </div>
+</header>
+
+<section id="about">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Who I Am</div>
+      <h2>Building at the intersection of data, ML, and product</h2>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>I'm a Data Science postgraduate with hands-on experience across the full ML lifecycle — data collection and cleaning, feature engineering, model training and evaluation, and deployment via REST APIs. My core toolkit is Python, R, and SQL, with deep learning frameworks like TensorFlow and PyTorch for production-oriented solutions.</p>
+        <p>I've worked on diagnostic ML (breast cancer, bone fracture, and heart disease detection from biosignals), financial time-series forecasting, and most recently, LLM-based applications using LangChain, RAG pipelines, and vector databases. I also bring practical data annotation and data quality experience from my internship at Intelgic Technologies.</p>
+        <p>Currently exploring agentic AI systems and voice-enabled interfaces, while continuing to sharpen my data engineering skills with PySpark and cloud platforms.</p>
+      </div>
+      <div>
+        <div class="stat-card">
+          <span class="num">8.75</span>
+          <span class="label">CGPA — M.Sc. Data Science, University of Kalyani</span>
+        </div>
+        <div class="stat-card">
+          <span class="num">91%</span>
+          <span class="label">Test accuracy — Heart Disease Detection model</span>
+        </div>
+        <div class="stat-card">
+          <span class="num">52%</span>
+          <span class="label">Improvement in annotation/tagging accuracy at Intelgic</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Toolkit</div>
+      <h2>Skills & Technologies</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Languages & Core</h3>
+        <div class="tag-list">
+          <span class="tag">Python</span><span class="tag">R</span><span class="tag">SQL</span>
+          <span class="tag">OOPs</span><span class="tag">DSA</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>ML & Deep Learning</h3>
+        <div class="tag-list">
+          <span class="tag">TensorFlow</span><span class="tag">PyTorch</span><span class="tag">Scikit-learn</span>
+          <span class="tag">Model Evaluation</span><span class="tag">Feature Engineering</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Generative AI & LLMs</h3>
+        <div class="tag-list">
+          <span class="tag">LangChain</span><span class="tag">OpenAI API</span><span class="tag">RAG</span>
+          <span class="tag">Vector DBs (FAISS)</span><span class="tag">Prompt Engineering</span><span class="tag">Hugging Face</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Data Engineering</h3>
+        <div class="tag-list">
+          <span class="tag">PySpark</span><span class="tag">ETL/ELT</span><span class="tag">Pandas</span>
+          <span class="tag">NumPy</span><span class="tag">Data Pipelines</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Databases & Cloud</h3>
+        <div class="tag-list">
+          <span class="tag">MySQL</span><span class="tag">MongoDB</span><span class="tag">PostgreSQL</span>
+          <span class="tag">Databricks</span><span class="tag">AWS</span><span class="tag">GCP</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Tools & Visualization</h3>
+        <div class="tag-list">
+          <span class="tag">Git</span><span class="tag">Docker</span><span class="tag">Streamlit</span>
+          <span class="tag">OpenCV</span><span class="tag">Matplotlib</span><span class="tag">Power BI</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Selected Work</div>
+      <h2>Projects</h2>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="meta">Jan 2025 – Jun 2025</div>
+        <h3>AI-Driven Heart Disease Detection using Biological Signals</h3>
+        <p>A production-oriented AI solution for cardiovascular disease detection, processing PPG biosignal data to extract HRV and pulse-rate features. Trained ML/DL models achieving 91% test accuracy, with REST API endpoints built for real-time prediction.</p>
+        <div class="tag-list">
+          <span class="tag">Python</span><span class="tag">TensorFlow</span><span class="tag">PyTorch</span><span class="tag">NeuroKit2</span><span class="tag">MongoDB</span><span class="tag">REST API</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="meta">Aug 2025 – Sep 2025</div>
+        <h3>LLM-Based Chatbot with LangChain & RAG</h3>
+        <p>An end-to-end conversational AI app powered by OpenAI's GPT-3.5-turbo, with a Retrieval-Augmented Generation pipeline using FAISS for vector search. Achieved 90% user satisfaction in testing through optimized prompt design and context-aware chains.</p>
+        <div class="tag-list">
+          <span class="tag">LangChain</span><span class="tag">OpenAI API</span><span class="tag">FAISS</span><span class="tag">Hugging Face</span><span class="tag">Streamlit</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="meta">Sep 2025 – Oct 2025</div>
+        <h3>CyberSentinel-AI</h3>
+        <p>A multi-agent LLM system for automated cybersecurity threat detection, featuring a voice-enabled alert pipeline with Text-to-Speech responses, severity evaluation, and automated response generation for real-time security monitoring.</p>
+        <div class="tag-list">
+          <span class="tag">OpenAI API</span><span class="tag">Multi-Agent Systems</span><span class="tag">Voice AI</span><span class="tag">NLP</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="meta">Aug 2024 – Dec 2025</div>
+        <h3>Web Scraping for Stock Market Data Analysis</h3>
+        <p>Automated web scrapers extracting real-time Indian stock market data, followed by statistical analysis and LSTM-based forecasting to identify trends. Raw financial data cleaned and transformed into structured datasets with visual insights for decision-making.</p>
+        <div class="tag-list">
+          <span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">LSTM</span><span class="tag">SQL</span><span class="tag">Matplotlib</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="meta">Sep 2025 – Oct 2025</div>
+        <h3>Melophile — Music Player Using Django</h3>
+        <p>A full-stack music player with Django authentication, dynamic media streaming, and playlist management. Includes a custom utility for parsing LRC lyric files and a structured data pipeline feeding an analytics dashboard for user/track metadata.</p>
+        <div class="tag-list">
+          <span class="tag">Django</span><span class="tag">REST API</span><span class="tag">SQLite</span><span class="tag">MongoDB</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="meta">Jan 2026 – Feb 2026</div>
+        <h3>Fit&Hit — Full-Stack Fitness & Calorie Tracker</h3>
+        <p>A mobile-first fitness tracking app for logging meals, activities, and goals. Features AI-powered food recognition for calorie tracking and a multi-step onboarding flow with dynamic BMR-based calculations.</p>
+        <div class="tag-list">
+          <span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Strapi</span><span class="tag">Tailwind</span><span class="tag">JWT</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Career So Far</div>
+      <h2>Experience</h2>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <span class="when">Mar 2026 – Present</span>
+        <h3>Full Stack Developer (MERN)</h3>
+        <div class="org">Gravity Engineering Services · Bhubaneswar, Odisha · On-site</div>
+        <ul>
+          <li>Building and maintaining full-stack web applications using MongoDB, Express, React, and Node.js across the development lifecycle.</li>
+          <li>Developing responsive, component-based UIs with React and Tailwind CSS, following modern frontend architecture patterns.</li>
+          <li>Designing and integrating RESTful APIs for data exchange between frontend interfaces and backend services.</li>
+          <li>Working with MongoDB for schema design, querying, and data persistence in production applications.</li>
+          <li>Collaborating with the team on version control workflows (Git/GitHub), code reviews, and debugging across the stack.</li>
+        </ul>
+      </div>
+      <div class="timeline-item">
+        <span class="when">Mar 2025 – Jun 2025</span>
+        <h3>Data Annotator</h3>
+        <div class="org">Intelgic Technologies Pvt. Ltd. · Kolkata</div>
+        <ul>
+          <li>Executed image, text, and video annotation for AI training datasets using Python, OpenCV, LabelImg, and Roboflow.</li>
+          <li>Applied NLP techniques and OCR for text processing, improving data quality and tagging accuracy by 52%.</li>
+          <li>Collaborated with engineering teams to optimize datasets and test AI pipelines for production-grade applications.</li>
+          <li>Maintained documentation of data handling procedures and debugging processes following best practices.</li>
+        </ul>
+      </div>
+      <div class="timeline-item">
+        <span class="when">Internship</span>
+        <h3>Data Analytics Intern</h3>
+        <div class="org">Navodita Infotech</div>
+        <ul>
+          <li>Worked in a data analytics role applying SQL, Python, and Excel for data cleaning, EDA, and reporting.</li>
+          <li>Contributed to translating raw data into actionable business insights for cross-functional teams.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Background</div>
+      <h2>Education & Certifications</h2>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="edu-card">
+          <h3>M.Sc. Data Science</h3>
+          <div class="org">University of Kalyani, West Bengal · Aug 2023 – May 2025</div>
+          <div class="score">CGPA: 8.75</div>
+        </div>
+        <div class="edu-card">
+          <h3>B.Sc. Computer Science</h3>
+          <div class="org">The University of Burdwan, West Bengal · Oct 2020 – Aug 2023</div>
+          <div class="score">CGPA: 9.22</div>
+        </div>
+      </div>
+      <div>
+        <ul class="cert-list">
+          <li><span>Python Bootcamp Certification</span><span class="cert-org">HackerRank, 2025</span></li>
+          <li><span>SQL Advanced</span><span class="cert-org">HackerRank, 2025</span></li>
+          <li><span>Derive Insights from BigQuery Data</span><span class="cert-org">Google, 2024</span></li>
+          <li><span>Prompt Design in Vertex AI</span><span class="cert-org">Google, 2023</span></li>
+          <li><span>Develop Gen AI Apps with Gemini & Streamlit</span><span class="cert-org">Google, 2023</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="container">
+    <div class="eyebrow" style="justify-content:center;">Let's Connect</div>
+    <h2>Have a project or role in mind?</h2>
+    <p>I'm open to opportunities in data science, machine learning, and AI engineering. Reach out — I usually reply within a day.</p>
+    <div class="contact-links">
+      <a href="mailto:pritammajumder792@gmail.com" class="btn btn-primary">Email Me</a>
+      <a href="tel:+918373099600" class="btn btn-ghost">+91 8373099600</a>
+      <a href="https://www.linkedin.com/in/pritamnp" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
+      <a href="https://github.com/pritam1011NP" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    © 2026 Pritam Majumder. Built with curiosity and a lot of coffee.
+  </div>
+</footer>
+
+</body>
+</html>
