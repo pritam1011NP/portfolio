@@ -104,10 +104,19 @@
   /* hero layout with photo */
   .hero-top{
     display:flex;
-    align-items:center;
+    /*align-items:center;*/
     justify-content:space-between;
     gap:48px;
   }
+  /* Tablet */
+@media (max-width: 860px) {
+    .hero-top {
+        flex-direction: column-reverse;
+        text-align: center;
+        align-items: center;
+        gap: 32px;
+    }
+}
   .hero-text{ flex:1 1 560px; min-width:0; }
   .hero-photo{
     flex:0 0 auto;
